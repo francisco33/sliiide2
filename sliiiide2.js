@@ -18,6 +18,27 @@
     var $openControl = $(settings.open_id);
     var $closeControl = $(settings.exit_id);
 
+    var Prop = {
+
+      left: {properties: {top: '0', left: '0', transform: 'translateX(-100%)'},
+             activateAnimation: {transform: 'translateX(0)'},
+             deactivateAnimation: {transform: 'translateX(-100%)'}             
+
+      },
+
+      right: {
+
+      },
+
+      top: {
+
+      },
+
+      bottom: {
+
+      }
+    }
+
     var prepareProperties = {
       transition: 'transform ' + settings.animation_duration + ' cubic-bezier(0.54, 0.01, 0.57, 1.03)',
       position: 'fixed',
