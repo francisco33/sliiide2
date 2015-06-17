@@ -1,131 +1,108 @@
 (function ($) {
- 
+
   $.fn.sliiide = function(options) {
 
       // This is the easiest way to have default options.
-    var settings = $.extend({
+      var settings = $.extend({
           // These are the defaults.
-      sliiider_id: "#sliiider",
-      open_id: "#sliiiderOpen",
-      exit_id: "#sliiiderClose",
-      animation_duration: "0.7s",
-      place: "right",
-      width: 0.25
-    }, options );
+          sliiider_id: "#sliiider",
+          open_id: "#sliiiderOpen",
+          exit_id: "#sliiiderClose",
+          animation_duration: "0.7s",
+          place: "right",
+          width: 0.25
+        }, options );
 
-    var clicked = false;
-    var $sliiider = $(settings.sliiider_id);
-    var $openControl = $(settings.open_id);
-    var $closeControl = $(settings.exit_id);
+      var clicked = false;
+      var $sliiider = $(settings.sliiider_id);
+      var $openControl = $(settings.open_id);
+      var $closeControl = $(settings.exit_id);
 
-    var Prop = {
+      var Prop = {
 
-      left: {properties: {top: '0', left: '0', transform: 'translateX(-100%)'},
-             activateAnimation: {transform: 'translateX(0)'},
-             deactivateAnimation: {transform: 'translateX(-100%)'}             
+        left: {
+          properties: {top: '0', left: '0', transform: 'translateX(-100%)'},
+          activateAnimation: {transform: 'translateX(0)'},
+          deactivateAnimation: {transform: 'translateX(-100%)'}             
+        },
 
-      },
+        right: {
+          properties: {top: '0', right: '0', transform: 'translateX(100%)'},
+          activateAnimation: {transform: 'translateX(0)'},
+          deactivateAnimation: {transform: 'translateX(100%)'}
 
-      right: {
+        },
 
-      },
+        top: {
+          properties: {top: '0', right: '0', left:'0', transform: 'translateY(-100%)'},
+          activateAnimation: {transform: 'translateY(0)'},
+          deactivateAnimation: {transform: 'translateY(-100%)'}
 
-      top: {
+        },
 
-      },
+        bottom: {
+          roperties: {top: '0', right: '0', left:'0', transform: 'translateY(-100%)'},
+          activateAnimation: {transform: 'translateY(0)'},
+          deactivateAnimation: {transform: 'translateY(-100%)'}
 
-      bottom: {
-
+        }
       }
-    }
 
-    var prepareProperties = {
-      transition: 'transform ' + settings.animation_duration + ' cubic-bezier(0.54, 0.01, 0.57, 1.03)',
-      position: 'fixed',
-      visibility: 'hidden'
-    }
+      function siiize() {
+        var windowSize = {};
+        windowSize.height = $(window).height();
+        windowSize.width = $(window).width();
+        $sliiider.css('height', windowSize.height);
+        $sliiider.css('width', windowSize.width * settings.width)
+      }
 
-    var leftProperties = {
-      top: '0',
-      left: '0',
-      transform: 'translateX(-100%)'
-    }
+      function prepare() {
+        $sliiider.css(prepareProperties);
 
-    var rightProperties = {
-      top: '0',
-      right: '0',
-      transform: 'translateX(100%)'
-    }
-
-    var topProperties = {
-      top: '0',
-      right: '0',
-      left: '0',
-      transform: 'translateY(-100%)'
-    }
-
-    var bottomProperties = {
-      bottom: '0',
-      right: '0',
-      left: '0',
-      transform: 'translateY(100%)'
-    }
-    
-    function siiize() {
-      var windowSize = {};
-      windowSize.height = $(window).height();
-      windowSize.width = $(window).width();
-      $sliiider.css('height', windowSize.height);
-      $sliiider.css('width', windowSize.width * settings.width)
-    }
-
-    function prepare() {
-      $sliiider.css(prepareProperties);
-
-      switch(settings.place) {
-        case 'left':
+        switch(settings.place) {
+          case 'left':
           $sliiider.css(leftProperties);
           break;
-        case 'top':
+          case 'top':
           $sliiider.css(topProperties);
           break;
-        case 'right':
+          case 'right':
           $sliiider.css(rightProperties);
           break;
-        case 'bottom':
+          case 'bottom':
           $sliiider.css(bottomProperties);
           break;
-        default:
+          default:
           $sliiider.css(leftProperties);
+        }
+
       }
 
-    }
 
+      function activate() {
+        $sliiider.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend');
+        $sliiider.css('visibility','initial');
+        $sliiider.css('transform','translateX(0)');
+        clicked = true;
+      }
 
-    function activate() {
-      $sliiider.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend');
-      $sliiider.css('visibility','initial');
-      $sliiider.css('transform','translateX(0)');
-      clicked = true;
-    }
+      function deactivate() {
+        $sliiider.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function() {$sliiider.css('visibility','hidden');})
+        $sliiider.css({transform:'translateX(-100%)'});
+        clicked = false;
+      }
 
-    function deactivate() {
-      $sliiider.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function() {$sliiider.css('visibility','hidden');})
-      $sliiider.css({transform:'translateX(-100%)'});
-      clicked = false;
-    }
+      siiize();
+      prepare();
 
-    siiize();
-    prepare();
-
-    $(window).resize(function() {siiize()});
-    $openControl.click(function() {
-      if (!clicked)
-      {activate();}
-      else
-        {deactivate();}
-    });
+      $(window).resize(function() {siiize()});
+      $openControl.click(function() {
+        if (!clicked)
+          {activate();}
+        else
+          {deactivate();}
+      });
       
     }  
- 
-}(jQuery));
+
+  }(jQuery));
