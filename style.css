@@ -1,5 +1,31 @@
 .sliding-menu {
-	background-color: black;
+	background-color: white;
 }
 
-button {margin: auto; display: block;}
+button {
+	display: block;
+	position: absolute;
+	padding: 10px 30px 10px 30px;
+	margin: auto;
+	background-color: aqua;
+	color: white;
+	font-size: 18px;
+	border: none;
+}
+
+body {
+	min-height: 100%;
+	background-color: rgb(52, 52, 52);
+  display: flex;
+  display: -webkit-flex;
+  align-content: center;
+  -webkit-align-content: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+}
+
+html {
+	height: 100%;
+}
