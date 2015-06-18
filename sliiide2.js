@@ -11,7 +11,7 @@ var newSize;
           open_id: "#sliiiderOpen",
           exit_id: "#sliiiderClose",
           animation_duration: "0.7s",
-          place: "right",
+          place: "left",
           space: "300px"
         }, options );
 
@@ -57,9 +57,9 @@ var newSize;
         },
 
         bottom: {
-          roperties: {top: '0', right: '0', left:'0', transform: 'translateY(-100%)'},
+          properties: {bottom: '0', right: '0', left:'0', transform: 'translateY(100%)'},
           activateAnimation: {transform: 'translateY(0)'},
-          deactivateAnimation: {transform: 'translateY(-100%)'},
+          deactivateAnimation: {transform: 'translateY(100%)'},
           size: function (wHeight, wWidth) {
             return {height: settings.space, width: ""+wWidth+"px"}
           }

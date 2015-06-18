@@ -4,18 +4,20 @@
 
 button {
 	display: block;
-	position: absolute;
 	padding: 10px 30px 10px 30px;
 	margin: auto;
-	background-color: aqua;
+	background-color: rgb(18, 209, 234);
 	color: white;
 	font-size: 18px;
 	border: none;
+  margin: auto;
+  letter-spacing: 1px;
+  font-family: Lato;
 }
 
 body {
-	min-height: 100%;
-	background-color: rgb(52, 52, 52);
+  min-height: 100%;
+  background-color: rgb(52, 52, 52);
   display: flex;
   display: -webkit-flex;
   align-content: center;
@@ -24,8 +26,16 @@ body {
   -webkit-justify-content: center;
   flex-direction: column;
   -webkit-flex-direction: column;
+  text-align: center;
 }
 
 html {
 	height: 100%;
+}
+
+h1 {
+  color: white;
+  font-family: Lato;
+  font-weight: 300;
+  margin: 30px;
 }
