@@ -5,20 +5,68 @@
     <link href="style.css" rel="stylesheet" type="text/css" media="screen"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
   </head>
-  <body>
+  <body class="flex-center-wrapper">
     <h1>The Easiest Way to Create a Sliding Menu</h1>
-    <div id="sliiider" class="sliding-menu">
+    <div id="sliiider" class="sliding-menu flex-center-wrapper left-menu">
       <ul>
         <li><a href="#test">HOME</a></li>
+        <hr>
         <li><a href="#test">ABOUT</a></li>
+        <hr>
         <li><a href="#test">CONTACT US</a></li>
+        <hr>
         <li><a href="#test">OUR SERVICES</a></li>
       </ul>
+      <span class="sliiider-exit exit left-exit">&#215;</span>
     </div>
-    <div id="buttons-container">
-      <button id="sliiiderOpen">Sliiide</button>
+    <div id="sliiider" class="sliding-menu flex-center-wrapper right-menu">
+      <ul>
+        <li><a href="#test">HOME</a></li>
+        <hr>
+        <li><a href="#test">ABOUT</a></li>
+        <hr>
+        <li><a href="#test">CONTACT US</a></li>
+        <hr>
+        <li><a href="#test">OUR SERVICES</a></li>
+      </ul>
+      <span class="sliiider-exit exit right-exit">&#215;</span>
+    </div>
+    <div id="sliiider" class="sliding-menu top-menu">
+      <ul>
+        <li><a href="#test">HOME</a></li>
+        <hr>
+        <li><a href="#test">ABOUT</a></li>
+        <hr>
+        <li><a href="#test">CONTACT US</a></li>
+        <hr>
+        <li><a href="#test">OUR SERVICES</a></li>
+      </ul>
+      <span class="sliiider-exit exit top-exit">&#215;</span>
+    </div>
+    <div id="sliiider" class="sliding-menu bottom-menu">
+      <ul>
+        <li><a href="#test">HOME</a></li>
+        <hr>
+        <li><a href="#test">ABOUT</a></li>
+        <hr>
+        <li><a href="#test">CONTACT US</a></li>
+        <hr>
+        <li><a href="#test">OUR SERVICES</a></li>
+      </ul>
+      <span class="sliiider-exit exit bottom-exit">&#215;</span>
+    </div>
+    <div class="buttons-container">
+      <button id="left-toggle" class="slider-toggle">Sliiide</button>
+      <button id="top-toggle" class="slider-toggle">Sliiide</button>
+      <button id="right-toggle" class="slider-toggle">Sliiide</button>
+      <button id="bottom-toggle" class="slider-toggle">Sliiide</button>
     </div>
     <script src="sliiide2.js"></script>
-    <script> $('#sliiider').sliiide();</script>
+    <script> 
+      $('.left-menu').sliiide({place: 'left', exit_selector: '.left-exit', toggle: '#left-toggle'});
+      $('.top-menu').sliiide({place: 'top', exit_selector: '.top-exit', toggle: '#top-toggle'});
+      $('.right-menu').sliiide({place: 'right', exit_selector: '.right-exit', toggle: '#right-toggle'});
+      $('.bottom-menu').sliiide({place: 'bottom', exit_selector: '.bottom-exit', toggle: '#bottom-toggle'});
+    </script>
   </body>
 </html>

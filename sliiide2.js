@@ -1,5 +1,3 @@
-var newSize;
-
 (function ($) {
 
   $.fn.sliiide = function(options) {
@@ -7,21 +5,22 @@ var newSize;
       // This is the easiest way to have default options.
       var settings = $.extend({
           // These are the defaults.
-          sliiider_id: "#sliiider",
-          open_id: "#sliiiderOpen",
-          exit_id: "#sliiiderClose",
-          animation_duration: "0.7s",
-          place: "left",
-          space: "300px"
+          toggle: "#sliiider-toggle",
+          exit_selector: ".slider-exit",
+          animation_duration: "0.5s",
+          place: "top",
+          space: "300px",
+          animation_curve: "cubic-bezier(0.54, 0.01, 0.57, 1.03)"
         }, options );
 
+      var newSize;
       var clicked = false;
-      var $sliiider = $(settings.sliiider_id);
-      var $openControl = $(settings.open_id);
-      var $closeControl = $(settings.exit_id);
+      var $sliiider = this;
+      var $toggle = $(settings.toggle);
+      var $exit = $(settings.exit_selector);
 
       var prepareProperties = {
-      transition: 'transform ' + settings.animation_duration + ' cubic-bezier(0.54, 0.01, 0.57, 1.03)',
+      transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve,
       position: 'fixed',
       visibility: 'hidden'
       }
@@ -71,7 +70,6 @@ var newSize;
         windowSize.height = $(window).height();
         windowSize.width = $(window).width();
         newSize = Prop[settings.place]["size"].call(this, windowSize.height, windowSize.width);
-        console.log(newSize);
         $sliiider.css(newSize);
       }
 
@@ -98,12 +96,15 @@ var newSize;
       prepare();
 
       $(window).resize(function() {siiize()});
-      $openControl.click(function() {
+      $toggle.click(function() {
         if (!clicked)
           {activate();}
         else
           {deactivate();}
       });
+
+      $sliiider.find('a').on('click', function() {deactivate()});
+      $exit.on('click', function() {deactivate()});
       
     }  
 

@@ -2,22 +2,7 @@
 	background-color: white;
 }
 
-button {
-	display: block;
-	padding: 10px 30px 10px 30px;
-	margin: auto;
-	background-color: rgb(18, 209, 234);
-	color: white;
-	font-size: 18px;
-	border: none;
-  margin: auto;
-  letter-spacing: 1px;
-  font-family: Lato;
-}
-
-body {
-  min-height: 100%;
-  background-color: rgb(52, 52, 52);
+.flex-center-wrapper {
   display: flex;
   display: -webkit-flex;
   align-content: center;
@@ -27,6 +12,24 @@ body {
   flex-direction: column;
   -webkit-flex-direction: column;
   text-align: center;
+}
+
+.slider-toggle {
+	display: block;
+	padding: 10px 30px 10px 30px;
+	margin: 0 10px 0 0;
+	background-color: rgb(18, 209, 234);
+	color: white;
+	font-size: 18px;
+	border: none;
+  letter-spacing: 1px;
+  font-family: Lato;
+  
+}
+
+body {
+  min-height: 100%;
+  background-color: rgb(52, 52, 52);
 }
 
 html {
@@ -39,3 +42,56 @@ h1 {
   font-weight: 300;
   margin: 30px;
 }
+
+.vertical {
+
+}
+
+#sliiider a {
+  font-family: Lato;
+  font-size: 24px;
+  color: grey;
+  text-decoration: none;
+}
+
+#sliiider ul {
+  list-style: none;
+  text-align: center;
+  padding: 0;
+}
+
+#sliiider li {
+  margin: 40px auto 40px auto;
+}
+
+#sliiider hr {
+  width: 80%;
+  color: aqua;
+}
+
+#sliiider {
+  overflow: hidden;
+}
+
+.exit {
+  position: absolute;
+  font-size: 32px;
+  color: grey;
+  cursor: pointer;
+}
+
+.left-exit {
+  top: 20px;
+  right: 20px;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  align-items: space-between;
+  jutify-content: center;
+  max-width: 600px;
+  margin: 0 auto 0 auto;
+  flex-wrap: wrap;
+}
+
