@@ -1,5 +1,5 @@
 .sliding-menu {
-	background-color: white;
+	background-color: rgb(40, 38, 38);
 }
 
 .flex-center-wrapper {
@@ -17,19 +17,23 @@
 .slider-toggle {
 	display: block;
 	padding: 10px 30px 10px 30px;
-	margin: 0 10px 0 0;
+	margin: 10px;
 	background-color: rgb(18, 209, 234);
 	color: white;
 	font-size: 18px;
 	border: none;
   letter-spacing: 1px;
   font-family: Lato;
-  
+  width: 120px;
+  height: 50px;
+  text-align: center;
 }
 
 body {
   min-height: 100%;
-  background-color: rgb(52, 52, 52);
+  background-image: url('background2.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 html {
@@ -38,9 +42,18 @@ html {
 
 h1 {
   color: white;
+  font-family: 'PayTone One';
+  font-weight: 300;
+  font-size: 60px;
+  margin: 0;
+}
+
+h2 {
+  color: white;
   font-family: Lato;
   font-weight: 300;
-  margin: 30px;
+  font-size: 32px;
+  margin: 10px auto 30px auto;
 }
 
 .vertical {
@@ -50,7 +63,7 @@ h1 {
 #sliiider a {
   font-family: Lato;
   font-size: 24px;
-  color: grey;
+  color: rgb(200, 200, 200);
   text-decoration: none;
 }
 
@@ -75,23 +88,29 @@ h1 {
 
 .exit {
   position: absolute;
-  font-size: 32px;
-  color: grey;
+  font-size: 40px;
+  color: white;
   cursor: pointer;
 }
 
-.left-exit {
+.left-exit, .top-exit, .bottom-exit {
   top: 20px;
-  right: 20px;
+  right: 40px;
+}
+
+.right-exit {
+  top: 20px;
+  left: 40px;
 }
 
 .buttons-container {
   display: flex;
   flex-direction: row;
-  align-items: space-between;
-  jutify-content: center;
-  max-width: 600px;
+  align-items: center;
+  justify-content: center;
+  max-width: 700px;
   margin: 0 auto 0 auto;
   flex-wrap: wrap;
 }
+
 

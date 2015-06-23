@@ -2,11 +2,13 @@
 <html dir="ltr" lang="en-US">
   <head>
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Paytone+One' rel='stylesheet' type='text/css'>
     <link href="style.css" rel="stylesheet" type="text/css" media="screen"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
   </head>
   <body class="flex-center-wrapper">
-    <h1>The Easiest Way to Create a Sliding Menu</h1>
+    <h1>Sliiide</h1>
+    <h2>The Easiest Way to Create a Sliding Menu</h2>
     <div id="sliiider" class="sliding-menu flex-center-wrapper left-menu">
       <ul>
         <li><a href="#test">HOME</a></li>
@@ -56,17 +58,17 @@
       <span class="sliiider-exit exit bottom-exit">&#215;</span>
     </div>
     <div class="buttons-container">
-      <button id="left-toggle" class="slider-toggle">Sliiide</button>
-      <button id="top-toggle" class="slider-toggle">Sliiide</button>
-      <button id="right-toggle" class="slider-toggle">Sliiide</button>
-      <button id="bottom-toggle" class="slider-toggle">Sliiide</button>
+      <button id="left-toggle" class="slider-toggle">Left</button>
+      <button id="top-toggle" class="slider-toggle">Top</button>
+      <button id="right-toggle" class="slider-toggle">Right</button>
+      <button id="bottom-toggle" class="slider-toggle">Bottom</button>
     </div>
     <script src="sliiide2.js"></script>
     <script> 
-      $('.left-menu').sliiide({place: 'left', exit_selector: '.left-exit', toggle: '#left-toggle'});
-      $('.top-menu').sliiide({place: 'top', exit_selector: '.top-exit', toggle: '#top-toggle'});
-      $('.right-menu').sliiide({place: 'right', exit_selector: '.right-exit', toggle: '#right-toggle'});
-      $('.bottom-menu').sliiide({place: 'bottom', exit_selector: '.bottom-exit', toggle: '#bottom-toggle'});
+      $('.left-menu').sliiide({place: 'left', exit_selector: '.left-exit', toggle: '#left-toggle', space:'300px'});
+      $('.top-menu').sliiide({place: 'top', exit_selector: '.top-exit', toggle: '#top-toggle', space:'200px'});
+      $('.right-menu').sliiide({place: 'right', exit_selector: '.right-exit', toggle: '#right-toggle', space:'300px'});
+      $('.bottom-menu').sliiide({place: 'bottom', exit_selector: '.bottom-exit', toggle: '#bottom-toggle', space:'200px'});
     </script>
   </body>
 </html>

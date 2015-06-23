@@ -20,9 +20,9 @@
       var $exit = $(settings.exit_selector);
 
       var prepareProperties = {
+      visibility: 'hidden',
       transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve,
-      position: 'fixed',
-      visibility: 'hidden'
+      position: 'fixed'
       }
 
       var Prop = {
