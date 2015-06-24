@@ -8,21 +8,63 @@
           toggle: "#sliiider-toggle",
           exit_selector: ".slider-exit",
           animation_duration: "0.5s",
-          place: "top",
-          space: "300px",
-          animation_curve: "cubic-bezier(0.54, 0.01, 0.57, 1.03)"
+          place: "right",
+          animation_curve: "cubic-bezier(0.54, 0.01, 0.57, 1.03)",
+          body_slide: "true"
         }, options );
 
       var newSize;
       var clicked = false;
-      var $sliiider = this;
+      var $sliiider = $(this);
       var $toggle = $(settings.toggle);
       var $exit = $(settings.exit_selector);
+      var bodySlideDistance;
 
       var prepareProperties = {
-      visibility: 'hidden',
-      transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve,
-      position: 'fixed'
+        visibility: 'hidden',
+        transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve,
+        position: 'fixed'
+      }
+
+      var bodySlidePrepare = {
+        transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve +
+                    ', -webkit-filter ' + settings.animation_duration + ' ' + settings.animation_curve
+      }
+
+      var bodySlideProp = {
+        setleft: function(distance) {
+          console.log(this);
+          this.left.activateAnimation.transform = 'translateX('+distance+'px)';
+          this.left.deactivateAnimation.transform = 'translateX(0px)';
+        },
+        setright: function(distance) {
+          this.right.activateAnimation.transform = 'translateX(-'+distance+'px)';
+          this.right.deactivateAnimation.transform = 'translateX(0px)';
+        },
+        setbottom: function(distance) {
+          this.bottom.activateAnimation.transform = 'translateY(-'+distance+'px)';
+          this.bottom.deactivateAnimation.transform = 'translateY(0px)';
+        },
+        settop: function(distance) {
+          this.top.activateAnimation.transform = 'translateY('+distance+'px)';
+          this.top.deactivateAnimation.transform = 'translateY(0px)';
+        },
+        left: {
+          activateAnimation: {transform:'', '-webkit-transform': ''},
+          deactivateAnimation: {transform: '', '-webkit-transform': ''}
+        },
+        right: {
+          activateAnimation: {transform: '', '-webkit-transform': ''},
+          deactivateAnimation: {transform: '', '-webkit-transform': ''}
+        },
+        top: {
+          activateAnimation: {transform: '', '-webkit-transform': ''},
+          deactivateAnimation: {transform: '', '-webkit-transform': ''}
+        },
+        bottom: {
+          activateAnimation: {transform: '', '-webkit-transform': ''},
+          deactivateAnimation: {transform: '', '-webkit-transform': ''}
+        }
       }
 
       var Prop = {
@@ -32,7 +74,7 @@
           activateAnimation: {transform: 'translateX(0)'},
           deactivateAnimation: {transform: 'translateX(-100%)'},
           size: function (wHeight, wWidth) {
-            return {height: wHeight, width: settings.space}
+            return {height: wHeight}
           }         
         },
 
@@ -41,7 +83,7 @@
           activateAnimation: {transform: 'translateX(0)'},
           deactivateAnimation: {transform: 'translateX(100%)'},
           size: function (wHeight, wWidth) {
-            return {height: wHeight, width: settings.space}
+            return {height: wHeight}
           }  
 
         },
@@ -51,7 +93,7 @@
           activateAnimation: {transform: 'translateY(0)'},
           deactivateAnimation: {transform: 'translateY(-100%)'},
           size: function (wHeight, wWidth) {
-            return {height: settings.space, width: ""+wWidth+"px"}
+            return {widthkey: wWidth}
           }  
         },
 
@@ -60,7 +102,7 @@
           activateAnimation: {transform: 'translateY(0)'},
           deactivateAnimation: {transform: 'translateY(100%)'},
           size: function (wHeight, wWidth) {
-            return {height: settings.space, width: ""+wWidth+"px"}
+            return {width: wWidth}
           }
         }
       }
@@ -76,19 +118,42 @@
       function prepare() {
         $sliiider.css(prepareProperties);
         $sliiider.css(Prop[settings.place]["properties"]);
+        if(settings.body_slide)
+        {
+          if(settings.place === 'right' || settings.place === 'left')
+          {
+            bodySlideDistance = $sliiider.width();
+          }
+          else
+          {
+            bodySlideDistance = $sliiider.height();
+          }
+          bodySlideProp['set'+settings.place](bodySlideDistance);
+          $sliiider.remove();
+          $('body').wrapInner('<div class="sliiide-container"></div>');
+          $('body').append($sliiider);
+          $('.sliiide-container').css(bodySlidePrepare);
+
+        }
       }
 
 
       function activate() {
+
         $sliiider.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend');
         $sliiider.css('visibility','initial');
         $sliiider.css(Prop[settings.place]["activateAnimation"]);
+        $('.sliiide-container').first().css({'-webkit-filter': 'grayscale(100%)'}).css(bodySlideProp[settings.place].activateAnimation);
+
+        disable_scroll();
         clicked = true;
       }
 
       function deactivate() {
+        enable_scroll();
         $sliiider.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function() {$sliiider.css('visibility','hidden');})
         $sliiider.css(Prop[settings.place]["deactivateAnimation"]);
+        $('.sliiide-container').first().css({'-webkit-filter': 'grayscale(0)'}).css(bodySlideProp[settings.place].deactivateAnimation)
         clicked = false;
       }
 
@@ -106,6 +171,46 @@
       $sliiider.find('a').on('click', function() {deactivate()});
       $exit.on('click', function() {deactivate()});
       
-    }  
+    }
+// ==============================
+// Disabling and enabling scroll
+// ==============================
 
-  }(jQuery));
+  var keys = [37, 38, 39, 40];
+
+  function preventDefault(e) {
+    e = e || window.event;
+    if (e.preventDefault)
+     e.preventDefault();
+    e.returnValue = false;  
+  }
+
+  function keydown(e) {
+    for (var i = keys.length; i--;) {
+     if (e.keyCode === keys[i]) {
+        preventDefault(e);
+     return;
+      }
+    }
+  }
+
+  function wheel(e) {
+    preventDefault(e);
+  }
+
+  function disable_scroll() {
+    if (window.addEventListener) {
+      window.addEventListener('DOMMouseScroll', wheel, false);
+    }
+    window.onmousewheel = document.onmousewheel = wheel;
+    document.onkeydown = keydown;
+  }
+
+  function enable_scroll() {
+    if (window.removeEventListener) {
+     window.removeEventListener('DOMMouseScroll', wheel, false);
+   }
+    window.onmousewheel = document.onmousewheel = document.onkeydown = null;  
+  }
+
+}(jQuery));

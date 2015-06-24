@@ -60,29 +60,29 @@ h2 {
 
 }
 
-#sliiider a {
+.sliding-menu a {
   font-family: Lato;
   font-size: 24px;
   color: rgb(200, 200, 200);
   text-decoration: none;
 }
 
-#sliiider ul {
+.sliding-menu ul {
   list-style: none;
   text-align: center;
   padding: 0;
 }
 
-#sliiider li {
+.sliding-menu li {
   margin: 40px auto 40px auto;
 }
 
-#sliiider hr {
-  width: 80%;
+.sliding-menu hr {
+  width: 70%;
   color: aqua;
 }
 
-#sliiider {
+.sliding-menu {
   overflow: hidden;
 }
 
@@ -113,4 +113,8 @@ h2 {
   flex-wrap: wrap;
 }
 
+
+.left-menu, .right-menu {width: 300px;}
+
+.top-menu, .bottom-menu {height: 200px;}
 

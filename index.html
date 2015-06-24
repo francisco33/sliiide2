@@ -9,19 +9,19 @@
   <body class="flex-center-wrapper">
     <h1>Sliiide</h1>
     <h2>The Easiest Way to Create a Sliding Menu</h2>
-    <div id="sliiider" class="sliding-menu flex-center-wrapper left-menu">
+    <div class="sliding-menu flex-center-wrapper left-menu">
       <ul>
-        <li><a href="#test">HOME</a></li>
+        <li><a href="#test">ABOUT ME</a></li>
         <hr>
-        <li><a href="#test">ABOUT</a></li>
+        <li><a href="#test">VIEW ON GITHUB</a></li>
         <hr>
-        <li><a href="#test">CONTACT US</a></li>
+        <li><a href="#test">HOW TO USE</a></li>
         <hr>
-        <li><a href="#test">OUR SERVICES</a></li>
+        <li><a href="#test"></a></li>
       </ul>
       <span class="sliiider-exit exit left-exit">&#215;</span>
     </div>
-    <div id="sliiider" class="sliding-menu flex-center-wrapper right-menu">
+    <!-- <div class="sliding-menu flex-center-wrapper right-menu">
       <ul>
         <li><a href="#test">HOME</a></li>
         <hr>
@@ -33,7 +33,7 @@
       </ul>
       <span class="sliiider-exit exit right-exit">&#215;</span>
     </div>
-    <div id="sliiider" class="sliding-menu top-menu">
+    <div class="sliding-menu top-menu">
       <ul>
         <li><a href="#test">HOME</a></li>
         <hr>
@@ -45,7 +45,7 @@
       </ul>
       <span class="sliiider-exit exit top-exit">&#215;</span>
     </div>
-    <div id="sliiider" class="sliding-menu bottom-menu">
+    <div class="sliding-menu bottom-menu">
       <ul>
         <li><a href="#test">HOME</a></li>
         <hr>
@@ -56,7 +56,7 @@
         <li><a href="#test">OUR SERVICES</a></li>
       </ul>
       <span class="sliiider-exit exit bottom-exit">&#215;</span>
-    </div>
+    </div> -->
     <div class="buttons-container">
       <button id="left-toggle" class="slider-toggle">Left</button>
       <button id="top-toggle" class="slider-toggle">Top</button>
@@ -65,10 +65,10 @@
     </div>
     <script src="sliiide2.js"></script>
     <script> 
-      $('.left-menu').sliiide({place: 'left', exit_selector: '.left-exit', toggle: '#left-toggle', space:'300px'});
-      $('.top-menu').sliiide({place: 'top', exit_selector: '.top-exit', toggle: '#top-toggle', space:'200px'});
-      $('.right-menu').sliiide({place: 'right', exit_selector: '.right-exit', toggle: '#right-toggle', space:'300px'});
-      $('.bottom-menu').sliiide({place: 'bottom', exit_selector: '.bottom-exit', toggle: '#bottom-toggle', space:'200px'});
+      $('.left-menu').sliiide({place: 'left', exit_selector: '.left-exit', toggle: '#left-toggle'});
+      // $('.top-menu').sliiide({place: 'top', exit_selector: '.top-exit', toggle: '#top-toggle'});
+      // $('.right-menu').sliiide({place: 'right', exit_selector: '.right-exit', toggle: '#right-toggle'});
+      // $('.bottom-menu').sliiide({place: 'bottom', exit_selector: '.bottom-exit', toggle: '#bottom-toggle'});
     </script>
   </body>
 </html>
