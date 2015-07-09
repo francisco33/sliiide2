@@ -10,7 +10,9 @@
           animation_duration: "0.5s",
           place: "right",
           animation_curve: "cubic-bezier(0.54, 0.01, 0.57, 1.03)",
-          body_slide: "true"
+          body_slide: true,
+          BandW: true,
+          no_scroll: true,
         }, options );
 
       var newSize;
@@ -19,6 +21,7 @@
       var $toggle = $(settings.toggle);
       var $exit = $(settings.exit_selector);
       var bodySlideDistance;
+      var $sliiideContainer;
 
       var prepareProperties = {
         visibility: 'hidden',
@@ -33,7 +36,6 @@
 
       var bodySlideProp = {
         setleft: function(distance) {
-          console.log(this);
           this.left.activateAnimation.transform = 'translateX('+distance+'px)';
           this.left.deactivateAnimation.transform = 'translateX(0px)';
         },
@@ -129,10 +131,13 @@
             bodySlideDistance = $sliiider.height();
           }
           bodySlideProp['set'+settings.place](bodySlideDistance);
-          $sliiider.remove();
-          $('body').wrapInner('<div class="sliiide-container"></div>');
-          $('body').append($sliiider);
-          $('.sliiide-container').css(bodySlidePrepare);
+          if(!$('.sliiide-container').length)
+          {
+            $('body').wrapInner('<div class="sliiide-container"></div>');
+          }
+          $('body').prepend($sliiider);
+          $sliiideContainer = $('.sliiide-container').first();
+          $sliiideContainer.css(bodySlidePrepare);
 
         }
       }
@@ -143,9 +148,16 @@
         $sliiider.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend');
         $sliiider.css('visibility','initial');
         $sliiider.css(Prop[settings.place]["activateAnimation"]);
-        $('.sliiide-container').first().css({'-webkit-filter': 'grayscale(100%)'}).css(bodySlideProp[settings.place].activateAnimation);
-
-        disable_scroll();
+        $sliiideContainer.css(bodySlideProp[settings.place].activateAnimation);
+        if(settings.BandW)
+        {
+          $sliiideContainer.css({'-webkit-filter': 'grayscale(100%)'})
+        }
+        if(settings.no_scroll)
+        {
+          disable_scroll();
+        }
+        
         clicked = true;
       }
 
@@ -153,7 +165,7 @@
         enable_scroll();
         $sliiider.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function() {$sliiider.css('visibility','hidden');})
         $sliiider.css(Prop[settings.place]["deactivateAnimation"]);
-        $('.sliiide-container').first().css({'-webkit-filter': 'grayscale(0)'}).css(bodySlideProp[settings.place].deactivateAnimation)
+        $sliiideContainer.css({'-webkit-filter': 'grayscale(0 )'}).css(bodySlideProp[settings.place].deactivateAnimation)
         clicked = false;
       }
 
