@@ -48,8 +48,7 @@
       };
 
       var bodySlidePrepare = {
-        transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve +
-        ', -webkit-filter ' + settings.animation_duration + ' ' + settings.animation_curve,
+        transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve,
         'overflow-x': 'hidden',
         'overflow-y': 'hidden'
       };
@@ -139,13 +138,22 @@
 
       var prefixCSS = function(cssProp) {
         $.each(cssProp, function(k, v) {
-          if($.inArray(k, ['transition', 'transform']) >= 0)
-          { var extraCSS = {}
-            extraCSS['-webkit-'+k] = v;
-            extraCSS['-ms-'+k] = v;
-            $.extend(cssProp, extraCSS);
-          }   
-        }); 
+          if(k === 'transition')
+            { var trnsCSS = {};
+          var trnsProp = v.split(' ',1)[0];
+          var trnsAttr = v.split(' '); trnsAttr.shift(); trnsAttr = trnsAttr.join(' ');
+          trnsCSS['-webkit-'+k] = '-webkit-' + trnsProp + ' ' + trnsAttr;
+          trnsCSS['-ms-'+k] = '-ms-' + trnsProp + ' ' + trnsAttr;
+          $.extend(cssProp, trnsCSS);
+        }
+        else if (k === 'transform')
+        {
+          var trnsfCSS = {};
+          trnsfCSS['-webkit-'+k] = v;
+          trnsfCSS['-ms-'+k] = v;
+        }
+      }); 
+        console.log(cssProp);
         return cssProp;
       }
 
@@ -155,97 +163,102 @@
         windowSize.width = $(window).width();
         newSize = Prop[settings.place].size(windowSize.height, windowSize.width);
         $sliiider.css(newSize);
+        setSlideDistance();
       }
 
-      var prepare = function() {
-        $sliiider.css(prefixCSS(prepareProperties));
-        $sliiider.css(prefixCSS(Prop[settings.place]["properties"]));
-        if(settings.body_slide)
+      var setSlideDistance = function() {
+       if(settings.body_slide)
+       {
+        if(settings.place === 'right' || settings.place === 'left')
         {
-          if(settings.place === 'right' || settings.place === 'left')
-          {
-            bodySlideDistance = $sliiider.width();
-          }
-          else
-          {
-            bodySlideDistance = $sliiider.height();
-          }
-          bodySlideProp['set'+settings.place](bodySlideDistance);
+          bodySlideDistance = $sliiider.width();
         }
-      };
-
-
-      var activate = function() {
-
-        $sliiider.css('visibility','initial');
-        if(settings.body_slide) {
-          $body.css(prefixCSS(bodySlidePrepare));
-          $body.css(prefixCSS(bodySlideProp[settings.place].activateAnimation));
+        else
+        {
+          bodySlideDistance = $sliiider.height();
         }
-
-        else {
-          $sliiider.css(prefixCSS(Prop[settings.place]["activateAnimation"]));
-        }
-        
-        if(settings.no_scroll)  {
-          disable_scroll();
-        }
-        
-        clicked = true;
+        bodySlideProp['set'+settings.place](bodySlideDistance);
       }
+    }
 
-      var hideSlider = function(e) {
-        $sliiider.css('visibility','hidden');
-        $body.css(bodyResetProp);
-        $body.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', hideSlider);
-      }
+    var prepare = function() {
+      $sliiider.css(prefixCSS(prepareProperties));
+      $sliiider.css(prefixCSS(Prop[settings.place]["properties"]));
+      setSlideDistance();
+    };
 
-      function deactivate() {
 
-       $body.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', hideSlider);
+    var activate = function() {
 
-       if(settings.body_slide) {
-        $body.css(prefixCSS(bodySlideProp[settings.place].deactivateAnimation));
+      $sliiider.css('visibility','initial');
+      if(settings.body_slide) {
+        $body.css(prefixCSS(bodySlidePrepare));
+        $body.css(prefixCSS(bodySlideProp[settings.place].activateAnimation));
       }
 
       else {
-        $sliiider.css(prefixCSS(Prop[settings.place].deactivateAnimation));
+        $sliiider.css(prefixCSS(Prop[settings.place]["activateAnimation"]));
       }
 
       if(settings.no_scroll)  {
-        enable_scroll();
+        disable_scroll();
       }
 
-      clicked = false;
+      clicked = true;
     }
 
-    siiize();
-    prepare();
-    $(window).resize(siiize);
-
-    var handleToggle = function() {
-      if (!clicked)
-        {activate();}
-      else
-        {deactivate();}
-    }
-
-    $toggle.click(handleToggle);
-    $sliiider.find('a').on('click', function() {deactivate()});
-    $exit.on('click', function() {deactivate()});
-
-    var deleteProp = function() {
+    var hideSlider = function(e) {
+      $sliiider.css('visibility','hidden');
       $body.css(bodyResetProp);
-      $sliiider.css(sliiiderResetProp);
-      $(window).off('resize', siiize);
-      $toggle.off('click', handleToggle);
+      $body.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', hideSlider);
     }
 
+    function deactivate() {
 
-    var menu = {
-      reset: function(name) {
-        $body.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', deleteProp);
-        deactivate();  
+     $body.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', hideSlider);
+
+     if(settings.body_slide) {
+      $body.css(prefixCSS(bodySlideProp[settings.place].deactivateAnimation));
+    }
+
+    else {
+      $sliiider.css(prefixCSS(Prop[settings.place].deactivateAnimation));
+    }
+
+    if(settings.no_scroll)  {
+      enable_scroll();
+    }
+
+    clicked = false;
+  }
+
+  siiize();
+  prepare();
+  $(window).resize(siiize);
+
+  var handleToggle = function() {
+    if (!clicked)
+      {activate();}
+    else
+      {deactivate();}
+  }
+
+  $toggle.click(handleToggle);
+  $sliiider.find('a').on('click', function() {deactivate()});
+  $exit.on('click', function() {deactivate()});
+
+  var deleteProp = function() {
+    $body.css(bodyResetProp);
+    $sliiider.css(sliiiderResetProp);
+    $(window).off('resize', siiize);
+    $toggle.off('click', handleToggle);
+  }
+
+
+  var menu = {
+    reset: function(name) {
+      $body.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', deleteProp);
+      deactivate();  
         // $body.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', deleteProp);
       },
       deactivate: function() {deactivate()},
@@ -289,7 +302,7 @@ function enable_scroll() {
   if (window.removeEventListener) {
    window.removeEventListener('DOMMouseScroll', wheel, false);
  }
- window.onmousewheel = document.onmousewheel = document.onkeydown = null;  
+ window.onmousewheel = document.onmousewheel = document.onkeydown = null;
 }
 
 }(jQuery));
