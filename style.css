@@ -17,6 +17,7 @@ h1 {
   font-weight: 300;
   font-size: 60px;
   margin: 0;
+  padding: 0 20px;
 }
 
 h2 {
@@ -26,6 +27,7 @@ h2 {
   font-size: 32px;
   margin: 10px auto 30px auto;
   max-width: 800px;
+  padding: 0 20px;
 }
 
 .flex-center-wrapper {
@@ -54,18 +56,25 @@ h2 {
 
 .slider-toggle {
 	display: block;
-	padding: 10px 30px 10px 30px;
-	margin: 10px;
+	margin: 10px 15px 10px 15px;
 	color: white;
 	font-size: 18px;
 	border: none;
   letter-spacing: 1px;
   font-family: Lato;
-  width: 120px;
-  height: 50px;
+  width: 50px;
+  height: 20px;
+  border-radius: 100px;
   text-align: center;
   background-color: rgb(43, 57, 69);
   transition: background-color 0.5s;
+}
+
+.buttons-container span {
+  color: white;
+  font-family: Lato;
+  font-size: 18px;
+  letter-spacing: 1.2px;
 }
 
 .selected {
@@ -131,12 +140,17 @@ h2 {
 
 .note {
   position: absolute;
-  width: 200px;
+  width: 250px;
 }
 
 .left-note {
   bottom: 3%;
   left: 5%;
+}
+
+.right-note {
+  bottom: 10%;
+  right: 5%;
 }
 
 .top-note {
@@ -167,16 +181,22 @@ h2 {
   display: inline-block;
 }
 
-.left-arrow {
-  -webkit-transform: rotateX(-45deg);
-  -ms-transform: rotateX(-45deg);
-  transform: rotateX(-45deg);
-}
+/*.left-arrow {
+  -webkit-transform: rotateZ(-45deg);
+  -ms-transform: rotateZ(-45deg);
+  transform: rotateZ(-45deg);
+}*/
 
 .top-arrow {
   -webkit-transform: rotateZ(90deg);
   -ms-transform: rotateZ(90deg);
   transform: rotateZ(90deg);
+}
+
+.right-arrow {
+  -webkit-transform: rotateZ(180deg);
+  -ms-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
 }
 
 .bottom-arrow {
@@ -219,4 +239,34 @@ h2 {
   padding: 10px 20px;
   border: 0;
   margin: 0 10px;
+}
+
+.social {
+  -webkit-transition: background-color 0.5s;
+  transition: background-color 0.5s;
+}
+
+.social:hover {
+  background-color: rgb(67, 118, 129)
+}
+
+@media only screen and (max-width: 600px)
+{
+  .bottom-menu {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    height: 200px
+  }
+
+  .newsletter-signup input {
+    display: block;
+    width: 150px;
+    margin: 15px auto;
+    padding: 10px 0;
+  }
+
+  .newsletter-signup button {
+    width: 150px;
+    margin: auto;
+  }
 }
